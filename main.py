@@ -7,7 +7,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 
 @app.route('/spin', methods=['POST', 'OPTIONS'])
 @app.route('/cashout', methods=['POST', 'OPTIONS'])
-def entry():
+def entry(request):
     """Responds to any HTTP request."""
     # Set CORS headers for the preflight request
     if request.method == 'OPTIONS':

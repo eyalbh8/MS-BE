@@ -19,6 +19,7 @@ def get_credits(session_id, db):
             user_credits[session_id] = doc.to_dict().get('credits', 10)
         else:
             user_credits[session_id] = 10  # Initialize with 10 credits
+            doc_ref.set({'credits': 10})
     return user_credits[session_id]
 
 def set_credits(session_id, credits, db):
@@ -39,15 +40,7 @@ def initialize_user(request_json, db):
         if not session_id:
             return 400, {"error": "Session ID is required"}
 
-        doc_ref = db.collection('users').document(session_id)
-        doc = doc_ref.get()
-        if doc.exists:
-            credits = doc.to_dict().get('credits', 10)
-        else:
-            # Create a new user document with 10 credits if it does not exist
-            credits = 10
-            doc_ref.set({'credits': credits})
-            user_credits[session_id] = credits
+        credits = get_credits(session_id, db)
 
         response = {
             "credits": credits

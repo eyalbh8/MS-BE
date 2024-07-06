@@ -110,8 +110,7 @@ def spin(request_json, db):
 
 def cashout(request_json, db):
     """
-    Handle the cashout process by resetting the user's credits to 0 and updating
-    the Firestore database.
+    Handle the cashout process by updating the user's credits in Firestore.
     """
     try:
         session_id = request_json.get("session_id")
@@ -119,8 +118,7 @@ def cashout(request_json, db):
             return 400, {"error": "Session ID is required"}
 
         credits = get_credits(session_id, db)
-        user_credits[session_id] = 0  # Reset credits
-        db.collection('users').document(session_id).set({'credits': 0})
+        set_credits(session_id, credits, db)  # Update Firestore with the current credits
 
         response = {
             "credits": credits

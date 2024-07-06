@@ -30,7 +30,8 @@ def entry():
         request_json = request.get_json()
 
         print("New entry")
-        print(request_json)
+        print(f"Request path: {path}")
+        print(f"Request JSON: {request_json}")
 
         if path == "/spin":
             return_code, ret = spin(request_json)
@@ -40,8 +41,8 @@ def entry():
             return_code = 400
             ret = {"error": "Invalid endpoint"}
 
-        print(ret)
-        print(return_code)
+        print(f"Response: {ret}")
+        print(f"Return code: {return_code}")
 
         response = make_response(jsonify(ret), return_code)
         response.headers.update(headers)

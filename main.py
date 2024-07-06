@@ -17,7 +17,7 @@ def entry(request):
         # header and caches preflight response for an 3600s
         headers = {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type',
             'Access-Control-Max-Age': '3600'
         }
@@ -27,7 +27,9 @@ def entry(request):
     # Set CORS headers for the main request
     headers = {
         'Access-Control-Allow-Origin': '*',
-        "Content-Type": "application/json"
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Credentials': 'true'
     }
 
     path = request.path

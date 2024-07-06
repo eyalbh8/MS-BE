@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 from google.cloud import firestore
 from api import spin, cashout, initialize_user
@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for all routes
 @app.route('/spin', methods=['POST', 'OPTIONS'])
 @app.route('/cashout', methods=['POST', 'OPTIONS'])
 @app.route('/initialize', methods=['POST', 'OPTIONS'])
-def entry(request):
+def entry():
     """Responds to any HTTP request."""
     # Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
